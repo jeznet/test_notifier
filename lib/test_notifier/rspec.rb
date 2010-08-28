@@ -1,26 +1,11 @@
-require 'test_notifier'
-require 'spec/runner/formatter/base_text_formatter'
-
-class Spec::Runner::Formatter::BaseTextFormatter
-  alias dump_summary_original dump_summary
-  
-  def dump_summary(duration, examples, failed, pending)
-    dump_summary_original(duration, examples, failed, pending)
-    
-    begin
-      return if examples == 0
-      
-      if failed > 0
-        title = TestNotifier::FAILURE_TITLE
-        image = TestNotifier::ERROR_IMAGE
-      else
-        title = TestNotifier::PASSED_TITLE
-        image = TestNotifier::PASSED_IMAGE
-      end
-      
-      message = "#{examples} examples, #{failed} failed, #{pending} pending"
-      TestNotifier::notify(image, title, message)
-    rescue
-    end
-  end
+if defined?(RSpec)
+  require "test_notifier/runner/rspec"
+else
+  require "test_notifier/runner/spec"
 end
+
+warn <<-TXT
+[TestNotifier] Using `require "test_notifier/rspec"` is deprecated and
+will be removed in the future. Please use `require "test_notifier/runner/spec"`
+or `require "test_notifier/runner/rspec"` for RSpec 2 instead.
+TXT

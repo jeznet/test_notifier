@@ -1,12 +1,7 @@
-require 'test_notifier'
+require "test_notifier/runner/autotest"
 
-Autotest.add_hook :ran_command do |at|
-  begin
-    content = at.results.to_s
-  
-    TestNotifier.rspec?(content) ? 
-      TestNotifier.notification_for_rspec(content) : 
-      TestNotifier.notification_for_test_unit(content)
-  rescue
-  end
-end
+warn <<-TXT
+[TestNotifier] Using `require "test_notifier/autotest"` is deprecated and
+will be removed in the future. Please update your `~/.autotest` file to use
+`require "test_notifier/runner/autotest"` instead.
+TXT

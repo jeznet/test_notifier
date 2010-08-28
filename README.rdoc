@@ -17,7 +17,7 @@ file anyway in order to clean up the failures/errors).
 
 * Install Growl - http://growl.info/
 * Install the growlnotify script located on the "Extras" directory
-* Open the Growl Preference Page (System > Growl) and activate the options "Listen for incoming notifications" and "Allow remote application registration" on the Network tab.
+* Open the Growl Preference Panel (System > Growl) and activate "Listen for incoming notifications" and "Allow remote application registration" options on the Network tab.
 
 === Linux
 
@@ -38,15 +38,18 @@ Then, install the gem with <tt>sudo gem install test_notifier</tt>
 
 == Usage
 
-If you're using Test::Unit you should add <tt>require "test_notifier/test_unit"</tt>
+If you're using Test::Unit you should add <tt>require "test_notifier/runner/test_unit"</tt> to your <tt>test_helper.rb</tt> file.
 
-If you're using RSpec you should add <tt>require "test_notifier/rspec"</tt>
+If you're using RSpec you should add <tt>require "test_notifier/runner/spec"</tt> to your <tt>spec_helper.rb</tt> file. If you're using RSpec 2, you need to add <tt>require "test_notifier/runner/rspec"</tt> instead.
 
-If you're using Autotest you should add <tt>require test_notifier/autotest"</tt> to
+If you're using Autotest you should add <tt>require test_notifier/runner/autotest"</tt> to
 the file <tt>~/.autotest</tt>
 
-If you want to customize the images, create a directory at <tt>~/.test_notifier</tt>
-and save the images <tt>none.png</tt>, <tt>passed.png<tt>, <tt>failure.png</tt> and <tt>error.png</tt>.
+You can define your notifier.
+
+  TestNotifier.default_notifier = :growl
+
+The available notifiers are <tt>:growl</tt>, <tt>:kdialog</tt>, <tt>:knotify</tt>, <tt>:notify_send</tt>, <tt>:osd_cat</tt> and <tt>:snarl</tt>.
 
 == Maintainer
 
@@ -56,6 +59,7 @@ and save the images <tt>none.png</tt>, <tt>passed.png<tt>, <tt>failure.png</tt> 
 
 * Szymon (jeznet) Jeż - http://github.com/jeznet
 * Steve Halasz - http://github.com/woodchuck
+* Khaja Minhajuddin - http://minhajuddin.com/
 
 == License
 
